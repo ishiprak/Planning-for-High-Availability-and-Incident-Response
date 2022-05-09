@@ -13,15 +13,39 @@ Asset name	Brief description	AWS size eg. t3.micro (if applicable, not all asset
 Virtual machine (VM)	EC2 instances	t3.micro	3	Deployed in DR
 Kubernetes cluster	EKS		2	Deployed in DR
 VPC				Created in multiple locations
-Application load balancer	Amazon ELB			Deployed to DR
+Application load balancer	Amazon ALB			Deployed to DR
 SQL cluster	Amazon RDS		2 (in each cluster)	Replicated in primary and secondary zones
+
 ### Descriptions				
 More detailed descriptions of each asset identified above.				
-* Each VM has 3 instances (EC2)				
-* Each Kubernetes cluster has 2 nodes (EKS)				
-* The VPC has IPs in multiple availability zones (VPC)				
-* An application load balancer in each region (ALB)				
-* 2 instance nodes for each SQL cluster are present (primary and secondary clusters) and each cluster has multiple availability zones				
+
+- Asset 1:
+    * The service used here is AWS Elastic Cloud Compute (EC2)
+    * Each Virtual Machine (VM) has 3 instances (EC2)
+    * The instance size chosen here is t3.micro for each cluster
+    * We have desployed the VM clusters in two regions, one primary (zone 1) and other DR (zone 1) as well
+
+- Asset 2:
+    * The service used here is AWS Elastic Kubernetes Service (EKS)
+    * Each Kubernetes cluster has 2 nodes (EKS)
+    * We have desployed the Kubernetes clusters in two regions as well, one primary (zone 1) and other DR (zone 1)
+
+- Asset 3:
+    * The service used here is AWS Virtual Private Cloud (VPC)
+    * The VPC has IPs in multiple availability zones (VPC)
+    * Here the VPC is also deployed for both primary region (zone 1) and DR region (zone 2)
+
+- Asset 4:
+    * The service used here is AWS Application Load Balancer (ALB)
+    * An application load balancer has been deployed in each region (ALB)
+    * ALB helps to distribute the incoming application traffic to appropriate nodes in the cluster
+
+- Asset 5:
+    * The service used here is AWS Relational Database Service (RDS)
+    * Two instance nodes for each SQL cluster are present (primary and secondary clusters)
+    * Each cluster has multiple availability zones
+    * The Secondary cluster (Zone 2) acts as a replica cluster for Primary cluster (Zone 1)
+
 ## DR Plan				
 ### Pre-Steps:				
 List steps you would perform to setup the infrastructure in the other region. It doesn't have to be super detailed, but high-level should suffice.				
